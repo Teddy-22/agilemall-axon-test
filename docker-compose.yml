@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: agilemall-postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P@ssw0rd$
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - agilemall-network
+
+  axonserver:
+    image: axoniq/axonserver:latest
+    container_name: agilemall-axon
+    ports:
+      - "18124:8124"
+      - "18024:8024"
+    environment:
+      AXONSERVER_HOSTNAME: agilemall-axon
+      AXONSERVER_NAME: agilemall-axon
+    volumes:
+      - axon_data:/data
+      - axon_events:/eventdata
+      - axon_config:/config
+    networks:
+      - agilemall-network
+
+networks:
+  agilemall-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  axon_data:
+  axon_events:
+  axon_config:
