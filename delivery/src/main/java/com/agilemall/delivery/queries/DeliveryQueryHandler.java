@@ -22,7 +22,7 @@ public class DeliveryQueryHandler {
         this.deliveryRepository = deliveryRepository;
     }
 
-    @QueryHandler(queryName = Constants.QUERY_REPORT)
+    @QueryHandler(queryName = Constants.QUERY_DELIVERY)
     private DeliveryDTO handle(String orderId) {
        log.info("[@QueryHandler] Handle <{}> for Order Id: {}", Constants.QUERY_REPORT,orderId);
         Optional<Delivery> optDelivery = deliveryRepository.findByOrderId(orderId);

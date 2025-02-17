@@ -413,7 +413,7 @@ public class OrderService {
 
         ResultVO<String> retVo = new ResultVO<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        DeliveryDTO delivery = queryGateway.query(Constants.QUERY_REPORT, orderId,
+        DeliveryDTO delivery = queryGateway.query(Constants.QUERY_DELIVERY, orderId,
                 ResponseTypes.instanceOf(DeliveryDTO.class)).join();
         if (delivery == null) {
             retVo.setReturnCode(false);
