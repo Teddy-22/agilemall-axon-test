@@ -9,8 +9,10 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: P@ssw0rd$
+      POSTGRES_MULTIPLE_DATABASES: orderDB,paymentDB,deliveryDB,inventoryDB,reportDB
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-multiple-databases.sh:/docker-entrypoint-initdb.d/init-multiple-databases.sh
     networks:
       - agilemall-network
 
