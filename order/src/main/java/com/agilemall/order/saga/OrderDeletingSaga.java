@@ -16,6 +16,7 @@ import com.agilemall.common.config.Constants;
 import com.agilemall.common.dto.ReportDTO;
 import com.agilemall.common.dto.ServiceNameEnum;
 import com.agilemall.common.events.delete.*;
+import com.agilemall.common.queries.Queries;
 import com.agilemall.order.command.CompleteDeleteOrderCommand;
 import com.agilemall.order.events.CancelledDeleteOrderEvent;
 import com.agilemall.order.events.CompletedDeleteOrderEvent;
@@ -38,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 @Saga
 @Slf4j
 public class OrderDeletingSaga {
-    private final HashMap<String, String> aggregateIdMap = new HashMap<>();
+    private final HashMap<String, String> aggregateIdMap = new HashMap<String, String>();
 
     private transient CommandGateway commandGateway;
     @Autowired
@@ -57,6 +58,7 @@ public class OrderDeletingSaga {
     public void setQueryGateway(QueryGateway queryGateway) {
         this.queryGateway = queryGateway;
     }
+
     //======================== 정상 처리 =============================
 
     //-- 결제 정보 삭제 요청
@@ -67,7 +69,7 @@ public class OrderDeletingSaga {
         log.info("===== [Delete Order] #2: <DeletePaymentCommand> =====");
 
         //--Report data에서 각 서비스의 Id값을 구함
-        ReportDTO report = queryGateway.query(Constants.QUERY_REPORT, event.getOrderId(),
+        ReportDTO report = queryGateway.query(Queries.REPORT_BY_ORDER_ID, event.getOrderId(),
                 ResponseTypes.instanceOf(ReportDTO.class)).join();
         if(report == null) {
             log.info("Can't find Report info for Order Id: {}", event.getOrderId());
@@ -159,8 +161,8 @@ public class OrderDeletingSaga {
 
         //주문 삭제 최종 처리 요청
         try {
-            //commandGateway.sendAndWait(completeDeleteOrderCommand, Constants.GATEWAY_TIMEOUT, TimeUnit.SECONDS);
-            throw new RuntimeException("주문삭제 보상처리 테스트");
+            commandGateway.sendAndWait(completeDeleteOrderCommand, Constants.GATEWAY_TIMEOUT, TimeUnit.SECONDS);
+            //throw new RuntimeException("주문삭제 보상처리 테스트");
         } catch(Exception e) {
             log.error(e.getMessage());
 

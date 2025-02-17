@@ -19,6 +19,7 @@ import com.agilemall.common.dto.OrderDTO;
 import com.agilemall.common.dto.PaymentDTO;
 import com.agilemall.common.dto.ServiceNameEnum;
 import com.agilemall.common.queries.GetReportId;
+import com.agilemall.common.queries.Queries;
 import com.agilemall.order.command.CancelDeleteOrderCommand;
 import com.agilemall.order.command.CancelUpdateOrderCommand;
 import lombok.extern.slf4j.Slf4j;
@@ -166,11 +167,11 @@ public class CompensatingService {
         log.info("===== START {} Report =====", isCreate?"Create":"Update");
 
         try {
-            OrderDTO order = queryGateway.query(Constants.QUERY_REPORT, orderId,
+            OrderDTO order = queryGateway.query(Queries.ORDER_BY_ORDER_ID, orderId,
                     ResponseTypes.instanceOf(OrderDTO.class)).join();
-            PaymentDTO payment = queryGateway.query(Constants.QUERY_REPORT, orderId,
+            PaymentDTO payment = queryGateway.query(Queries.PAYMENT_BY_ORDER_ID, orderId,
                     ResponseTypes.instanceOf(PaymentDTO.class)).join();
-            DeliveryDTO delivery = queryGateway.query(Constants.QUERY_REPORT, orderId,
+            DeliveryDTO delivery = queryGateway.query(Queries.DELIVERY_BY_ORDER_ID, orderId,
                     ResponseTypes.instanceOf(DeliveryDTO.class)).join();
 
             if(isCreate) {

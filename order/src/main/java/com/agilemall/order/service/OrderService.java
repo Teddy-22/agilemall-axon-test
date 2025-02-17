@@ -6,6 +6,7 @@ package com.agilemall.order.service;
 import com.agilemall.common.config.Constants;
 import com.agilemall.common.dto.*;
 import com.agilemall.common.queries.GetInventoryByProductIdQuery;
+import com.agilemall.common.queries.Queries;
 import com.agilemall.common.vo.ResultVO;
 import com.agilemall.order.command.CreateOrderCommand;
 import com.agilemall.order.command.DeleteOrderCommand;
@@ -211,7 +212,7 @@ public class OrderService {
         int totalOrderAmt = newOrderDetails.stream().mapToInt(OrderDetailDTO::getOrderAmt).sum();
 
         //결제 상세정보 재설정
-        PaymentDTO payment = queryGateway.query(Constants.QUERY_REPORT, orderId,
+        PaymentDTO payment = queryGateway.query(Queries.PAYMENT_BY_ORDER_ID, orderId,
                 ResponseTypes.instanceOf(PaymentDTO.class)).join();
         if (payment == null) {
             retVo.setReturnCode(false);
@@ -262,11 +263,11 @@ public class OrderService {
         ResultVO<OrderStatusDTO> retVo = new ResultVO<>();
 
         try {
-            OrderDTO order = queryGateway.query(Constants.QUERY_REPORT, orderId,
+            OrderDTO order = queryGateway.query(Queries.ORDER_BY_ORDER_ID, orderId,
                     ResponseTypes.instanceOf(OrderDTO.class)).join();
-            PaymentDTO payment = queryGateway.query(Constants.QUERY_REPORT, orderId,
+            PaymentDTO payment = queryGateway.query(Queries.PAYMENT_BY_ORDER_ID, orderId,
                     ResponseTypes.instanceOf(PaymentDTO.class)).join();
-            DeliveryDTO delivery = queryGateway.query(Constants.QUERY_REPORT, orderId,
+            DeliveryDTO delivery = queryGateway.query(Queries.DELIVERY_BY_ORDER_ID, orderId,
                     ResponseTypes.instanceOf(DeliveryDTO.class)).join();
 
             OrderStatusDTO orderStatusDTO = OrderStatusDTO.builder()
@@ -413,7 +414,7 @@ public class OrderService {
 
         ResultVO<String> retVo = new ResultVO<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        DeliveryDTO delivery = queryGateway.query(Constants.QUERY_DELIVERY, orderId,
+        DeliveryDTO delivery = queryGateway.query(Queries.DELIVERY_BY_ORDER_ID, orderId,
                 ResponseTypes.instanceOf(DeliveryDTO.class)).join();
         if (delivery == null) {
             retVo.setReturnCode(false);
@@ -467,7 +468,7 @@ public class OrderService {
 
         ResultVO<String> retVo = new ResultVO<>();
         retVo.setResult(orderId);
-        DeliveryDTO delivery = queryGateway.query(Constants.QUERY_REPORT, orderId,
+        DeliveryDTO delivery = queryGateway.query(Queries.DELIVERY_BY_ORDER_ID, orderId,
                 ResponseTypes.instanceOf(DeliveryDTO.class)).join();
         if (delivery == null) {
             retVo.setReturnCode(false);

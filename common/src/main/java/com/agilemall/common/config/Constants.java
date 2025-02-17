@@ -1,9 +1,7 @@
 package com.agilemall.common.config;
 
 public final class Constants {
+    // 시스템 설정 관련 상수
     public final static int SNAPSHOT_COUNT = 5;
     public final static int GATEWAY_TIMEOUT = 30;
-    public final static String QUERY_REPORT = "ReportQuery";
-    public final static String QUERY_ORDER_DETAIL = "OrderDetailQuery";
-    public final static String QUERY_DELIVERY = "DeliveryQuery";
 }

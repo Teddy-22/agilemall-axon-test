@@ -1,7 +1,7 @@
 package com.agilemall.delivery.queries;
 
-import com.agilemall.common.config.Constants;
 import com.agilemall.common.dto.DeliveryDTO;
+import com.agilemall.common.queries.Queries;
 import com.agilemall.delivery.entity.Delivery;
 import com.agilemall.delivery.repository.DeliveryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +22,9 @@ public class DeliveryQueryHandler {
         this.deliveryRepository = deliveryRepository;
     }
 
-    @QueryHandler(queryName = Constants.QUERY_DELIVERY)
+    @QueryHandler(queryName = Queries.DELIVERY_BY_ORDER_ID)
     private DeliveryDTO handle(String orderId) {
-       log.info("[@QueryHandler] Handle <{}> for Order Id: {}", Constants.QUERY_REPORT,orderId);
+       log.info("[@QueryHandler] Handle <{}> for Order Id: {}", Queries.DELIVERY_BY_ORDER_ID, orderId);
         Optional<Delivery> optDelivery = deliveryRepository.findByOrderId(orderId);
         if(optDelivery.isPresent()) {
             Delivery delivery = optDelivery.get();

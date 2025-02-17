@@ -1,8 +1,8 @@
 package com.agilemall.report.queries;
 
-import com.agilemall.common.config.Constants;
 import com.agilemall.common.dto.ReportDTO;
 import com.agilemall.common.queries.GetReportId;
+import com.agilemall.common.queries.Queries;
 import com.agilemall.report.entity.Report;
 import com.agilemall.report.repository.ReportRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +34,9 @@ public class ReportQueryHandler {
         }
     }
 
-    @QueryHandler(queryName = Constants.QUERY_REPORT)
+    @QueryHandler(queryName = Queries.REPORT_BY_ORDER_ID)
     private ReportDTO handle(String orderId) {
-        log.info("[@QueryHandler] Handle <{}}> for Order Id: {}", Constants.QUERY_REPORT, orderId);
+        log.info("[@QueryHandler] Handle <{}}> for Order Id: {}", Queries.REPORT_BY_ORDER_ID, orderId);
         Optional<Report> optReport = reportRepository.findByOrderId(orderId);
         if(optReport.isPresent()) {
             ReportDTO report = new ReportDTO();

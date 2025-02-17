@@ -1,8 +1,8 @@
 package com.agilemall.payment.queries;
 
-import com.agilemall.common.config.Constants;
 import com.agilemall.common.dto.PaymentDTO;
 import com.agilemall.common.dto.PaymentDetailDTO;
+import com.agilemall.common.queries.Queries;
 import com.agilemall.payment.entity.Payment;
 import com.agilemall.payment.repository.PaymentRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +25,9 @@ public class PaymentQueryHandler {
         this.paymentRepository = paymentRepository;
     }
 
-    @QueryHandler(queryName = Constants.QUERY_REPORT)
+    @QueryHandler(queryName = Queries.PAYMENT_BY_ORDER_ID)
     private PaymentDTO handle(String orderId) {
-        log.info("[@QueryHandler] Handle <{}> for Order Id: {}", Constants.QUERY_REPORT,orderId);
+        log.info("[@QueryHandler] Handle <{}> for Order Id: {}", Queries.PAYMENT_BY_ORDER_ID, orderId);
 
         Optional<Payment> optPayment = paymentRepository.findByOrderId(orderId);
         if(optPayment.isPresent()) {

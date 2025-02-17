@@ -6,6 +6,7 @@ import com.agilemall.common.dto.DeliveryDTO;
 import com.agilemall.common.dto.DeliveryStatusEnum;
 import com.agilemall.common.dto.InventoryQtyAdjustTypeEnum;
 import com.agilemall.common.dto.OrderDetailDTO;
+import com.agilemall.common.queries.Queries;
 import com.agilemall.common.vo.ResultVO;
 import com.agilemall.delivery.command.UpdateDeliveryCommand;
 import com.agilemall.delivery.entity.Delivery;
@@ -98,7 +99,7 @@ public class DeliveryService {
 
         try {
             List<OrderDetailDTO> orderDetails = queryGateway.query(
-                    Constants.QUERY_ORDER_DETAIL,
+                    Queries.ORDER_DETAIL_BY_ORDER_ID,
                     deliveryDTO.getOrderId(),
                     ResponseTypes.multipleInstancesOf(OrderDetailDTO.class)).join();
             if(orderDetails == null) {
