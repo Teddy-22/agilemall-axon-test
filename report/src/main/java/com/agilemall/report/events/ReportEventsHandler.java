@@ -23,7 +23,7 @@ public class ReportEventsHandler {
     }
 
     @EventHandler
-    private void on(DeletedReportEvent event) {
+    void on(DeletedReportEvent event) {
         log.info("[@EventHandler] Handle <DeletedReportEvent> for Order Id: {}", event.getOrderId());
 
         Optional<Report> optReport = reportRepository.findByOrderId(event.getOrderId());
@@ -41,7 +41,7 @@ public class ReportEventsHandler {
     - 목적: Order데이터 변경 시 Update Report using CQRS패턴
     */
     @EventHandler
-    private void on(UpdatedOrderToReportEvent event) {
+    void on(UpdatedOrderToReportEvent event) {
         log.info("[@EventHandler] Handle <UpdatedOrderToReportEvent> for Order Id: {}", event.getOrderId());
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -64,7 +64,7 @@ public class ReportEventsHandler {
     - 목적: Payment 데이터 변경 시 Update Report using CQRS패턴
     */
     @EventHandler
-    private void on(UpdatedPaymentToReportEvent event) {
+    void on(UpdatedPaymentToReportEvent event) {
         log.info("[@EventHandler] Handle <UpdatedPaymentToReportEvent> for Order Id: {}", event.getOrderId());
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

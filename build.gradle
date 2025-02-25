@@ -42,6 +42,7 @@ subprojects {
 
         //axon framework
         implementation 'org.axonframework:axon-spring-boot-starter:4.9.1'
+        testImplementation 'org.axonframework:axon-test:4.9.1'
         //Google core utilities
         implementation 'com.google.guava:guava:33.0.0-jre'
         //Apache utilities

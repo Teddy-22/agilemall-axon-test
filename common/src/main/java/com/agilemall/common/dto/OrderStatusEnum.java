@@ -7,7 +7,7 @@ public enum OrderStatusEnum {
     CREATED("10", "주문접수"),
     FAILED("20", "주문에러"),
     COMPLETED("30", "주문등록"),
-    UPTATED("40", "주문수정"),
+    UPDATED("40", "주문수정"),
     ORDER_CANCLLED("50", "주문취소");
 
     private final String value;
